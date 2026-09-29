@@ -1,0 +1,6 @@
+{% if data.retriable %}
+    <form method="post" action="{{ path('outbox_admin_job_retry', {id: data.id}) }}" class="d-inline">
+        <input type="hidden" name="_token" value="{{ csrf_token('outbox_retry_job') }}">
+        <button type="submit" class="btn btn-sm btn-outline-primary">{{ 'outbox.action.retry'|trans }}</button>
+    </form>
+{% endif %}

@@ -1,0 +1,76 @@
+# Layering rules of this bundle, same as any DDD Bounded Context:
+#   Domain         -> DddFoundation only. No framework, no ORM, no PSR.
+#   Application    -> Domain + DddFoundation + PSR contracts (log, clock).
+#   Infrastructure -> anything.
+# The bundle class itself is the composition root: it may see everything.
+deptrac:
+    paths:
+        - ./src
+
+    layers:
+        -   name: Domain
+            collectors:
+                -   type: classLike
+                    value: ^AlexandreBulete\\DddOutboxBundle\\Domain\\.*
+
+        -   name: Application
+            collectors:
+                -   type: classLike
+                    value: ^AlexandreBulete\\DddOutboxBundle\\Application\\.*
+
+        -   name: Infrastructure
+            collectors:
+                -   type: classLike
+                    value: ^AlexandreBulete\\DddOutboxBundle\\Infrastructure\\.*
+
+        -   name: Bundle
+            collectors:
+                -   type: classLike
+                    value: ^AlexandreBulete\\DddOutboxBundle\\DddOutboxBundle$
+
+        -   name: DddFoundation
+            collectors:
+                -   type: classLike
+                    value: ^AlexandreBulete\\DddFoundation\\.*
+
+        -   name: PsrContracts
+            collectors:
+                -   type: classLike
+                    value: ^Psr\\(Log|Clock)\\.*
+
+        -   name: Vendor
+            collectors:
+                -   type: bool
+                    must:
+                        -   type: classLike
+                            value: .*
+                    must_not:
+                        -   type: php_internal
+                            value: .*
+                        -   type: classLike
+                            value: ^AlexandreBulete\\DddOutboxBundle\\.*
+                        -   type: classLike
+                            value: ^AlexandreBulete\\DddFoundation\\.*
+                        -   type: classLike
+                            value: ^Psr\\(Log|Clock)\\.*
+
+    ruleset:
+        Domain:
+            - DddFoundation
+        Application:
+            - Domain
+            - DddFoundation
+            - PsrContracts
+        Infrastructure:
+            - Domain
+            - Application
+            - DddFoundation
+            - PsrContracts
+            - Vendor
+        Bundle:
+            - Domain
+            - Application
+            - Infrastructure
+            - DddFoundation
+            - PsrContracts
+            - Vendor

@@ -1,0 +1,2 @@
+{% set badge = {queued: 'blue', running: 'azure', retrying: 'orange', succeeded: 'green', failed: 'red'}[data] ?? 'secondary' %}
+<span class="badge bg-{{ badge }}-lt">{{ ('outbox.status.' ~ data)|trans }}</span>

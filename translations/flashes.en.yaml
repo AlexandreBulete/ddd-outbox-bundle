@@ -1,0 +1,3 @@
+outbox:
+    job:
+        retried: The job is back in the queue.

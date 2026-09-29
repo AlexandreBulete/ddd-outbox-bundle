@@ -1,0 +1,24 @@
+outbox:
+    menu:
+        jobs: Tâches asynchrones
+    field:
+        queued_at: En file depuis
+        message: Tâche
+        status: État
+        attempts: Tentatives
+        actor: Lancée par
+        last_error: Dernière erreur
+        finished_at: Terminée
+        chain: Chaîne
+        action: Action
+    status:
+        queued: En file
+        running: En cours
+        retrying: Nouvel essai prévu
+        succeeded: Réussie
+        failed: Échouée
+    action:
+        retry: Relancer
+    activity:
+        job_retried: Tâche relancée
+        jobs_purged: "Suivi des tâches réussies antérieures au %before% purgé"

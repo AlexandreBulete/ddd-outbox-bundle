@@ -1,0 +1,24 @@
+outbox:
+    menu:
+        jobs: Background jobs
+    field:
+        queued_at: Queued
+        message: Job
+        status: Status
+        attempts: Attempts
+        actor: Started by
+        last_error: Last error
+        finished_at: Finished
+        chain: Chain
+        action: Action
+    status:
+        queued: Queued
+        running: Running
+        retrying: Retry scheduled
+        succeeded: Succeeded
+        failed: Failed
+    action:
+        retry: Retry
+    activity:
+        job_retried: Job retried
+        jobs_purged: "Follow-up of jobs succeeded before %before% purged"
