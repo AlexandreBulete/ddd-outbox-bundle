@@ -1,5 +1,6 @@
 outbox:
     menu:
+        system: Système
         jobs: Tâches asynchrones
     field:
         queued_at: En file depuis

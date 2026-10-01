@@ -1,5 +1,6 @@
 outbox:
     menu:
+        system: System
         jobs: Background jobs
     field:
         queued_at: Queued

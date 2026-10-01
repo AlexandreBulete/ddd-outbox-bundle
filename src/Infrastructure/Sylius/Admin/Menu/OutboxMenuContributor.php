@@ -13,6 +13,9 @@ use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 /**
  * Registered only when `outbox.admin.enabled` is true. Shown to whoever may
  * list the jobs — to everyone when nothing checks permissions.
+ *
+ * Sits under a shared "System" section (get-or-create, so any system-oriented
+ * contributor can create it once), next to the activity journal and the like.
  */
 #[AutoconfigureTag('app.menu_contributor', ['priority' => 11])]
 final readonly class OutboxMenuContributor implements MenuContributorInterface
@@ -29,7 +32,12 @@ final readonly class OutboxMenuContributor implements MenuContributorInterface
             return;
         }
 
-        $menu
+        $system = $menu->getChild('system') ?? $menu
+            ->addChild('system')
+            ->setLabel('outbox.menu.system')
+            ->setLabelAttribute('icon', 'tabler:settings');
+
+        $system
             ->addChild('outbox', ['route' => 'outbox_admin_job_index'])
             ->setLabel('outbox.menu.jobs')
             ->setLabelAttribute('icon', 'tabler:arrows-right-left');
